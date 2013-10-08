@@ -132,12 +132,6 @@ public class Main extends javax.swing.JPanel {
                 Fsenha.setText("");
             }
         }
-    if(this.isVisible() == false){
-        JOptionPane.showMessageDialog(rootPane, "Erro, cliente não cadastrado, ou senha/login errados.");
-    }
-
-     
-
     }//GEN-LAST:event_LogarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
