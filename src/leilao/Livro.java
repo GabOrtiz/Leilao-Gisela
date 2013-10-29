@@ -75,6 +75,11 @@ public class Livro{
     public void setValor(double valor){
         this.valor = valor;
     }
+
+    @Override
+    public String toString() {
+        return "Livro{" + "titulo=" + titulo + ", autor=" + autor + ", estado=" + estado + ", cpfMaior=" + cpfMaior + ", valor=" + valor + ", data=" + data + '}';
+    }
   
     
 }
