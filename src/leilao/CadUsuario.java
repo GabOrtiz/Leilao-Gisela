@@ -216,7 +216,7 @@ public class CadUsuario extends javax.swing.JFrame {
             Connection con = Conectar.conn();
         int x = 0;
         Statement statement = con.createStatement();
-        statement.executeUpdate("insert into usuario(nome, cpf, login, senha) values('"+Fnome.getText()+"','"
+        statement.executeUpdate("insert into usuario(nome, cpf, email, senha) values('"+Fnome.getText()+"','"
                 +Fcpf.getText()+"','"+Femail.getText()+"','"+Fsenha.getText()+"');");
         Fnome.setText("");
         Fcpf.setText("");

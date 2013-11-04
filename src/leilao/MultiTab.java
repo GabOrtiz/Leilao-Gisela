@@ -4,13 +4,18 @@
  */
 package leilao;
 
-
+import java.awt.Component;
+import java.util.Date;
 import java.util.*;
 import java.net.*;
 import java.io.*;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -19,21 +24,24 @@ import java.util.logging.Logger;
  */
 public class MultiTab extends javax.swing.JFrame {
     
+    
 
     public static Usuario Uaux;
-    
+    String n, c, e, s;
     String nome = "";
     String cpf = "";
     String email = "";
     String senha = "";
+    
 
     /**
      * Creates new form MultiTab
      */
     public MultiTab() {
+        
         initComponents();
        
-        Uaux = new Usuario("teste", "tests", "teste", "teste");
+        //Uaux = new Usuario("teste", "teste", "teste", "teste");
     }
     
     
@@ -63,11 +71,11 @@ public class MultiTab extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabela = new javax.swing.JTable();
         Lance = new javax.swing.JButton();
-        LanceField = new javax.swing.JTextField();
+        Flance = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         Bpesquisar = new javax.swing.JButton();
         Fpesquisar = new javax.swing.JTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        Btodos = new javax.swing.JButton();
         cadastralivro = new javax.swing.JPanel();
         jLabelTitulo = new javax.swing.JLabel();
         Ftitulo = new javax.swing.JTextField();
@@ -93,6 +101,11 @@ public class MultiTab extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Leilão");
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                formMouseMoved(evt);
+            }
+        });
 
         jLabel2.setText("Olá");
 
@@ -240,14 +253,21 @@ public class MultiTab extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        Tabela.setColumnSelectionAllowed(true);
         Tabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TabelaMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(Tabela);
+        Tabela.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         Lance.setText("Lance");
+        Lance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LanceActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("R$");
 
@@ -258,10 +278,10 @@ public class MultiTab extends javax.swing.JFrame {
             }
         });
 
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
-        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
+        Btodos.setText("Todos");
+        Btodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField1ActionPerformed(evt);
+                BtodosActionPerformed(evt);
             }
         });
 
@@ -274,17 +294,18 @@ public class MultiTab extends javax.swing.JFrame {
                 .addGroup(leilaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leilaoLayout.createSequentialGroup()
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(Lance)
                         .addGap(32, 32, 32)
-                        .addComponent(LanceField, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Flance, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
                         .addGap(73, 73, 73)))
                 .addContainerGap())
             .addGroup(leilaoLayout.createSequentialGroup()
-                .addGap(353, 353, 353)
+                .addGap(20, 20, 20)
+                .addComponent(Btodos)
+                .addGap(260, 260, 260)
                 .addComponent(Bpesquisar)
                 .addGap(18, 18, 18)
                 .addComponent(Fpesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -296,15 +317,15 @@ public class MultiTab extends javax.swing.JFrame {
                 .addContainerGap(101, Short.MAX_VALUE)
                 .addGroup(leilaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Bpesquisar)
-                    .addComponent(Fpesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Fpesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Btodos))
                 .addGap(43, 43, 43)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addGroup(leilaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Lance)
-                    .addComponent(LanceField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Flance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addContainerGap())
         );
 
@@ -407,7 +428,7 @@ public class MultiTab extends javax.swing.JFrame {
                 .addGroup(cadastralivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar)
                     .addComponent(jButtonCadastrar))
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
 
         multitab.addTab("cadastrar livros", cadastralivro);
@@ -490,23 +511,26 @@ public class MultiTab extends javax.swing.JFrame {
     }//GEN-LAST:event_FvalorActionPerformed
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
-        try{ 
+       
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        
+
+        try{
+            Date date = new Date();
             Connection con = Conectar.conn();
         int x = 0;
         Statement statement = con.createStatement();
-        statement.executeUpdate("insert into livros(titulo, estado, autor, valor, data) values('"+Ftitulo.getText()+"','"
+        statement.executeUpdate("insert into livro(titulo, estado, autor, valor, data) values('"+Ftitulo.getText()+"','"
                 +String.valueOf(Festado.getSelectedItem())+"','"+Fautor.getText()+"','"+Fvalor.getText()
-                +"','"+Calendar.getInstance().getTime()+"');"); 
+                +"','"+dateFormat.format(date)+"');"); 
         Ftitulo.setText("");
         Fautor.setText("");
         Fvalor.setText("");
         con.close();  // fecha conexão com BD
         } catch (SQLException ex){
                 Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        
-        
-        
+          }
+
         
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
@@ -532,10 +556,6 @@ public class MultiTab extends javax.swing.JFrame {
         MultiTab.getOwnerlessWindows();
     }//GEN-LAST:event_jMenuItem6MouseClicked
 
-    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
-
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         try { 
              java.awt.Desktop.getDesktop().browse( new java.net.URI( "http://www.google.com" ) );  
@@ -556,7 +576,7 @@ public class MultiTab extends javax.swing.JFrame {
         try {
             
             Connection con = Conectar.conn();
-            PreparedStatement ps = con.prepareStatement("select * from livros where titulo = '"+Fpesquisar.getText()+"';");
+            PreparedStatement ps = con.prepareStatement("select * from livro where titulo = '"+Fpesquisar.getText()+"';");
             ResultSet rs = ps.executeQuery();
 
             Tabela.setModel(new ResultSetTableModel(rs));
@@ -572,11 +592,27 @@ public class MultiTab extends javax.swing.JFrame {
     }//GEN-LAST:event_BpesquisarActionPerformed
 
     private void LogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogarActionPerformed
-        try {
+                try {
             Connection con = Conectar.conn();
-            PreparedStatement login = con.prepareStatement("select * from usuarios where email = '" + Femail.getText() + "'and senha = '"+Fsenha.getSelectedText()+"';");
+            PreparedStatement login = con.prepareStatement("select * from usuario where email = '" + Femail.getText() + "' and senha = '"+Fsenha.getPassword()+"';");
             ResultSet rs = login.executeQuery();
-            Uaux = new Usuario(rs.getString("nome"),rs.getString("cpf"),rs.getString("email"),rs.getString("senha"));
+            
+            
+            while (rs.next()) {
+                n = (rs.getString("nome"));
+                c = (rs.getString("cpf"));
+                e = (rs.getString("email"));
+                s = (rs.getString("senha"));;
+            }
+            
+            Uaux = new Usuario(n, c, e, s);
+            
+            
+                    System.out.println(Uaux.toString());
+            
+ 
+            
+            //Uaux = new Usuario(rs.getString("nome"),rs.getString("cpf"),rs.getString("email"),rs.getString("senha"));
             con.close();  // fecha conexão com BD
         } catch (SQLException ex) {
             Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
@@ -592,6 +628,57 @@ public class MultiTab extends javax.swing.JFrame {
     private void BcadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BcadActionPerformed
         new CadUsuario().setVisible(true);
     }//GEN-LAST:event_BcadActionPerformed
+
+    private void BtodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtodosActionPerformed
+        try {
+            
+            Connection con = Conectar.conn();
+            PreparedStatement ps = con.prepareStatement("select * from livro;");
+            ResultSet rs = ps.executeQuery();
+
+            Tabela.setModel(new ResultSetTableModel(rs));
+            Tabela.repaint();
+
+            con.close();  // fecha conexão com BD
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_BtodosActionPerformed
+
+    private void LanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LanceActionPerformed
+        
+        
+            String n = Tabela.getValueAt(Tabela.getSelectedRow(), Tabela.getSelectedColumn()).toString();
+            
+
+            if(Double.parseDouble(Tabela.getValueAt(Tabela.getSelectedRow(), Tabela.getSelectedColumn()+3).toString()) < Double.parseDouble(Flance.getText())){
+        try {           
+            Connection con = Conectar.conn();
+            PreparedStatement ps = con.prepareStatement("update livro set valor = '"+Double.parseDouble(Flance.getText())+"' where titulo ='"+n+"';");
+            ps.executeUpdate();
+            
+            PreparedStatement ps2 = con.prepareStatement("select * from livro;");
+            ResultSet rs = ps2.executeQuery();
+            Tabela.setModel(new ResultSetTableModel(rs));
+            Tabela.repaint();
+            con.close();  // fecha conexão com BD
+        } catch (SQLException ex) {
+            Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            }
+            else {
+            JOptionPane.showMessageDialog(rootPane, "Valor do lance deve ser maior que o valor atual");
+        }
+    }//GEN-LAST:event_LanceActionPerformed
+
+    private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+            
+    }//GEN-LAST:event_formMouseMoved
 
     /**
      * @param args the command line arguments
@@ -630,23 +717,23 @@ public class MultiTab extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bcad;
     private javax.swing.JButton Bpesquisar;
+    private javax.swing.JButton Btodos;
     private javax.swing.JTextField Fautor;
     private javax.swing.JTextField Femail;
     private javax.swing.JComboBox Festado;
+    private javax.swing.JTextField Flance;
     private javax.swing.JTextField Fpesquisar;
     private javax.swing.JPasswordField Fsenha;
     private javax.swing.JTextField Ftitulo;
     private javax.swing.JTextField Fvalor;
     private javax.swing.JLabel LabelUser;
     private javax.swing.JButton Lance;
-    private javax.swing.JTextField LanceField;
     private javax.swing.JButton Logar;
     private javax.swing.JPanel Principal;
     private javax.swing.JTable Tabela;
     private javax.swing.JPanel cadastralivro;
     private javax.swing.JButton jButtonCadastrar;
     private javax.swing.JButton jButtonCancelar;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

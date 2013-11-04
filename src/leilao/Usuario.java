@@ -35,6 +35,11 @@ public class Usuario {
         this.cpf = cpf;
     }
 
+    @Override
+    public String toString() {
+        return "Usuario{" + "nome=" + nome + ", cpf=" + cpf + ", email=" + email + ", senha=" + senha + '}';
+    }
+
     public String getEmail() {
         return email;
     }
