@@ -4,11 +4,17 @@
  */
 package leilao;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
- * @author Ortiz
+ * @author Ortiz 
  */
 public class CadUsuario extends javax.swing.JFrame {
 
@@ -38,19 +44,19 @@ public class CadUsuario extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        fieldNome = new javax.swing.JTextField();
-        fieldCPF = new javax.swing.JTextField();
+        Fnome = new javax.swing.JTextField();
+        Fcpf = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        fieldEmail = new javax.swing.JTextField();
-        fieldSenha = new javax.swing.JTextField();
+        Femail = new javax.swing.JTextField();
+        Fsenha = new javax.swing.JTextField();
         Bcancelar = new javax.swing.JButton();
         Bcadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Cine Totem");
+        setTitle("Leilão");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Informações Pessoais"));
 
@@ -68,11 +74,11 @@ public class CadUsuario extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(fieldNome, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE))
+                        .addComponent(Fnome))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(fieldCPF)))
+                        .addComponent(Fcpf)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -81,11 +87,11 @@ public class CadUsuario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Fnome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(fieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Fcpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -97,7 +103,7 @@ public class CadUsuario extends javax.swing.JFrame {
 
         jLabel5.setText("Senha:");
 
-        fieldEmail.setText("seu email");
+        Femail.setText("seu email");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -110,8 +116,8 @@ public class CadUsuario extends javax.swing.JFrame {
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fieldEmail)
-                    .addComponent(fieldSenha))
+                    .addComponent(Femail)
+                    .addComponent(Fsenha))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -120,11 +126,11 @@ public class CadUsuario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(fieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Femail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(fieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Fsenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -158,7 +164,7 @@ public class CadUsuario extends javax.swing.JFrame {
                     .addGroup(cadastrausuarosLayout.createSequentialGroup()
                         .addGap(49, 49, 49)
                         .addComponent(Bcadastrar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                         .addComponent(Bcancelar)
                         .addGap(49, 49, 49)))
                 .addContainerGap())
@@ -183,7 +189,7 @@ public class CadUsuario extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(cadastrausuaros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -192,6 +198,8 @@ public class CadUsuario extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(cadastrausuaros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        cadastrausuaros.getAccessibleContext().setAccessibleName("Leilão");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -204,13 +212,22 @@ public class CadUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_BcancelarActionPerformed
 
     private void BcadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BcadastrarActionPerformed
-            Usuario u = new Usuario(fieldNome.getText(), fieldCPF.getText(), fieldEmail.getText(),fieldSenha.getText());
-            usuarios.add(u);
-
-        fieldNome.setText("");
-        fieldCPF.setText("");
-        fieldEmail.setText("");
-        fieldSenha.setText("");
+            try{ 
+            Connection con = Conectar.conn();
+        int x = 0;
+        Statement statement = con.createStatement();
+        statement.executeUpdate("insert into usuario(nome, cpf, login, senha) values('"+Fnome.getText()+"','"
+                +Fcpf.getText()+"','"+Femail.getText()+"','"+Fsenha.getText()+"');");
+        Fnome.setText("");
+        Fcpf.setText("");
+        Femail.setText("");
+        Fsenha.setText("");
+        con.close();  // fecha conexão com BD
+        } catch (SQLException ex){
+                Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        
 
 
         this.setVisible(false);
@@ -253,11 +270,11 @@ public class CadUsuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bcadastrar;
     private javax.swing.JButton Bcancelar;
+    private javax.swing.JTextField Fcpf;
+    private javax.swing.JTextField Femail;
+    private javax.swing.JTextField Fnome;
+    private javax.swing.JTextField Fsenha;
     private javax.swing.JPanel cadastrausuaros;
-    private javax.swing.JTextField fieldCPF;
-    private javax.swing.JTextField fieldEmail;
-    private javax.swing.JTextField fieldNome;
-    private javax.swing.JTextField fieldSenha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

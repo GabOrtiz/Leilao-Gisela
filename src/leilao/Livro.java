@@ -32,11 +32,11 @@ public class Livro{
         this.data = Calendar.getInstance().getTime();
     }
 
-    public String getCpfMaior() {
+    public String getCpfMaior(){
         return cpfMaior;
     }
 
-    public void setCpfMaior(String cpfMaior) {
+    public void setCpfMaior(String cpfMaior){
         this.cpfMaior = cpfMaior;
     }
 

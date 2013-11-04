@@ -4,22 +4,39 @@
  */
 package leilao;
 
-import java.util.ArrayList;
-import java.util.Calendar;
+
+import java.util.*;
+import java.net.*;
+import java.io.*;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  *
  * @author 631220414
  */
 public class MultiTab extends javax.swing.JFrame {
+    
 
-    public static ArrayList<Livro> livros = new ArrayList<Livro>();
+    public static Usuario Uaux;
+    
+    String nome = "";
+    String cpf = "";
+    String email = "";
+    String senha = "";
+
     /**
      * Creates new form MultiTab
      */
     public MultiTab() {
         initComponents();
+       
+        Uaux = new Usuario("teste", "tests", "teste", "teste");
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,6 +48,17 @@ public class MultiTab extends javax.swing.JFrame {
     private void initComponents() {
 
         multitab = new javax.swing.JTabbedPane();
+        Principal = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        LabelUser = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        Logar = new javax.swing.JButton();
+        Femail = new javax.swing.JTextField();
+        Fsenha = new javax.swing.JPasswordField();
+        Bcad = new javax.swing.JButton();
         leilao = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabela = new javax.swing.JTable();
@@ -64,6 +92,138 @@ public class MultiTab extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Leilão");
+
+        jLabel2.setText("Olá");
+
+        if(Uaux != null){
+            LabelUser.setText(Uaux.getNome());
+            LabelUser.repaint();
+        }
+        else
+        LabelUser.setText(" awww ");
+        LabelUser.repaint();
+        LabelUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                LabelUserMouseEntered(evt);
+            }
+        });
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Login"));
+
+        jLabel3.setText("Email");
+
+        jLabel4.setText("Senha");
+
+        Logar.setText("Logar");
+        Logar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LogarActionPerformed(evt);
+            }
+        });
+
+        Fsenha.setText("jPasswordField1");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(Logar)
+                .addGap(70, 70, 70))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addGap(90, 90, 90)
+                                .addComponent(jLabel3))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addGap(87, 87, 87)
+                                .addComponent(jLabel4)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Fsenha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                            .addComponent(Femail))))
+                .addGap(20, 20, 20))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addGap(11, 11, 11)
+                .addComponent(Femail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Fsenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Logar)
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
+        Bcad.setText("Cadastre-se aqui");
+        Bcad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BcadActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(Bcad, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Bcad)
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout PrincipalLayout = new javax.swing.GroupLayout(Principal);
+        Principal.setLayout(PrincipalLayout);
+        PrincipalLayout.setHorizontalGroup(
+            PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PrincipalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(LabelUser, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PrincipalLayout.createSequentialGroup()
+                .addContainerGap(400, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
+        );
+        PrincipalLayout.setVerticalGroup(
+            PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PrincipalLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(LabelUser, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
+        );
+
+        multitab.addTab("Principal", Principal);
 
         Tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -80,6 +240,11 @@ public class MultiTab extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        Tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TabelaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(Tabela);
 
         Lance.setText("Lance");
@@ -87,8 +252,18 @@ public class MultiTab extends javax.swing.JFrame {
         jLabel1.setText("R$");
 
         Bpesquisar.setText("pesquisar");
+        Bpesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BpesquisarActionPerformed(evt);
+            }
+        });
 
         jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
+        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextField1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout leilaoLayout = new javax.swing.GroupLayout(leilao);
         leilao.setLayout(leilaoLayout);
@@ -118,7 +293,7 @@ public class MultiTab extends javax.swing.JFrame {
         leilaoLayout.setVerticalGroup(
             leilaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leilaoLayout.createSequentialGroup()
-                .addContainerGap(98, Short.MAX_VALUE)
+                .addContainerGap(101, Short.MAX_VALUE)
                 .addGroup(leilaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Bpesquisar)
                     .addComponent(Fpesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -232,7 +407,7 @@ public class MultiTab extends javax.swing.JFrame {
                 .addGroup(cadastralivroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar)
                     .addComponent(jButtonCadastrar))
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
 
         multitab.addTab("cadastrar livros", cadastralivro);
@@ -262,7 +437,12 @@ public class MultiTab extends javax.swing.JFrame {
 
         jMenu3.setText("Ajuda");
 
-        jMenuItem1.setText("te vira magrão");
+        jMenuItem1.setText("clique aqui para receber ajuda");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem1);
 
         jMenuBar1.add(jMenu3);
@@ -310,13 +490,23 @@ public class MultiTab extends javax.swing.JFrame {
     }//GEN-LAST:event_FvalorActionPerformed
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
-        Livro l = new Livro(Ftitulo.getText(), Fautor.getText(), String.valueOf(Festado.getSelectedItem()),Double.parseDouble(Fvalor.getText()), Calendar.getInstance().getTime());
-        livros.add(l);
-
+        try{ 
+            Connection con = Conectar.conn();
+        int x = 0;
+        Statement statement = con.createStatement();
+        statement.executeUpdate("insert into livros(titulo, estado, autor, valor, data) values('"+Ftitulo.getText()+"','"
+                +String.valueOf(Festado.getSelectedItem())+"','"+Fautor.getText()+"','"+Fvalor.getText()
+                +"','"+Calendar.getInstance().getTime()+"');"); 
         Ftitulo.setText("");
         Fautor.setText("");
         Fvalor.setText("");
-        System.out.println(l.toString());
+        con.close();  // fecha conexão com BD
+        } catch (SQLException ex){
+                Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        
+        
         
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
@@ -339,8 +529,69 @@ public class MultiTab extends javax.swing.JFrame {
     }//GEN-LAST:event_FautorActionPerformed
 
     private void jMenuItem6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem6MouseClicked
-        login.getOwnerlessWindows();
+        MultiTab.getOwnerlessWindows();
     }//GEN-LAST:event_jMenuItem6MouseClicked
+
+    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        try { 
+             java.awt.Desktop.getDesktop().browse( new java.net.URI( "http://www.google.com" ) );  
+           }  catch (IOException ex) {  
+            Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+         
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void TabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TabelaMouseClicked
+
+    private void BpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpesquisarActionPerformed
+        // TODO add your handling code here:
+        try {
+            
+            Connection con = Conectar.conn();
+            PreparedStatement ps = con.prepareStatement("select * from livros where titulo = '"+Fpesquisar.getText()+"';");
+            ResultSet rs = ps.executeQuery();
+
+            Tabela.setModel(new ResultSetTableModel(rs));
+            Tabela.repaint();
+
+            con.close();  // fecha conexão com BD
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_BpesquisarActionPerformed
+
+    private void LogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogarActionPerformed
+        try {
+            Connection con = Conectar.conn();
+            PreparedStatement login = con.prepareStatement("select * from usuarios where email = '" + Femail.getText() + "'and senha = '"+Fsenha.getSelectedText()+"';");
+            ResultSet rs = login.executeQuery();
+            Uaux = new Usuario(rs.getString("nome"),rs.getString("cpf"),rs.getString("email"),rs.getString("senha"));
+            con.close();  // fecha conexão com BD
+        } catch (SQLException ex) {
+            Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_LogarActionPerformed
+
+    private void LabelUserMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelUserMouseEntered
+        System.out.println(Uaux.getNome());
+        LabelUser.setText(Uaux.getNome());
+    }//GEN-LAST:event_LabelUserMouseEntered
+
+    private void BcadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BcadActionPerformed
+        new CadUsuario().setVisible(true);
+    }//GEN-LAST:event_BcadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -377,20 +628,29 @@ public class MultiTab extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Bcad;
     private javax.swing.JButton Bpesquisar;
     private javax.swing.JTextField Fautor;
+    private javax.swing.JTextField Femail;
     private javax.swing.JComboBox Festado;
     private javax.swing.JTextField Fpesquisar;
+    private javax.swing.JPasswordField Fsenha;
     private javax.swing.JTextField Ftitulo;
     private javax.swing.JTextField Fvalor;
+    private javax.swing.JLabel LabelUser;
     private javax.swing.JButton Lance;
     private javax.swing.JTextField LanceField;
+    private javax.swing.JButton Logar;
+    private javax.swing.JPanel Principal;
     private javax.swing.JTable Tabela;
     private javax.swing.JPanel cadastralivro;
     private javax.swing.JButton jButtonCadastrar;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelAutor;
     private javax.swing.JLabel jLabelEstado;
     private javax.swing.JLabel jLabelTitulo;
@@ -406,6 +666,8 @@ public class MultiTab extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel leilao;
     private javax.swing.JTabbedPane multitab;
