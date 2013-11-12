@@ -1,10 +1,4 @@
 package leilao;
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author 631220414
@@ -27,17 +21,17 @@ public class ResultSetTableModel extends AbstractTableModel {
     * Classe interna utilizada para armazenar o nome de uma coluna e a classe  
     * Java correspondente ao tipo de dado da mesma  
     */  
-   private static class Column {   
+   private static class Column { 
   
       /**  
        * A classe Java do tipo de dado da coluna  
        */  
-      public final Class<?> CLASS;   
+      public final Class<?> CLASS;
   
       /**  
        * O nome da coluna  
        */  
-      public final String   NAME;   
+      public final String   NAME;
   
       /**  
        * Instancia um objeto {@link Column} com o tipo de dado e nome  
@@ -49,7 +43,7 @@ public class ResultSetTableModel extends AbstractTableModel {
        *            O nome da coluna  
        */  
       public Column(final String name,   
-                    final Class<?> type) {   
+                    final Class<?> type){ 
          NAME = name;   
          CLASS = type;   
       }   
@@ -64,7 +58,7 @@ public class ResultSetTableModel extends AbstractTableModel {
       /**  
        * Os valores de cada coluna do registro  
        */  
-      public final Object[] VALUES;   
+      public final Object[] VALUES;
   
       /**  
        * Instancia um objeto {@link Row} para o {@link ResultSet} informado  
@@ -73,12 +67,12 @@ public class ResultSetTableModel extends AbstractTableModel {
        *            O {@link ResultSet} da linha a ser processada  
        * @throws SQLException  
        */  
-      public Row(final ResultSet rs) throws SQLException {   
-         final int columns = rs.getMetaData().getColumnCount();   
-         VALUES = new Object[columns];   
-         for (int i = 1; i <= columns; i++) {   
-            VALUES[i - 1] = rs.getObject(i);   
-         }   
+      public Row(final ResultSet rs) throws SQLException {
+         final int columns = rs.getMetaData().getColumnCount();
+         VALUES = new Object[columns];
+         for (int i = 1; i <= columns; i++) {
+            VALUES[i - 1] = rs.getObject(i);
+         }
       }   
    }   
   
@@ -122,7 +116,7 @@ public class ResultSetTableModel extends AbstractTableModel {
   
    @Override  
    public int getColumnCount() {   
-      return columns.size();   
+      return columns.size();
    }   
   
    @Override  
@@ -136,8 +130,14 @@ public class ResultSetTableModel extends AbstractTableModel {
    }   
   
    @Override  
-   public Object getValueAt(final int rowIndex, final int columnIndex) {   
-      return lines.get(rowIndex).VALUES[columnIndex];   
+   public Object getValueAt(final int rowIndex, final int columnIndex) {
+       //System.out.println(rowIndex);
+       //System.out.println(lines.size());
+       Row r = lines.get(rowIndex);
+    
+            
+       return r.VALUES[columnIndex];
+      //return lines.get(rowIndex).VALUES[columnIndex];   
    }   
   
    @Override  

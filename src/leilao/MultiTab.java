@@ -69,6 +69,8 @@ public class MultiTab extends javax.swing.JFrame {
         Bpesquisar = new javax.swing.JButton();
         Fpesquisar = new javax.swing.JTextField();
         Btodos = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         cadastralivro = new javax.swing.JPanel();
         jLabelTitulo = new javax.swing.JLabel();
         Ftitulo = new javax.swing.JTextField();
@@ -245,10 +247,16 @@ public class MultiTab extends javax.swing.JFrame {
                 TabelaMouseClicked(evt);
             }
         });
+        Tabela.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TabelaFocusLost(evt);
+            }
+        });
         jScrollPane1.setViewportView(Tabela);
         Tabela.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         Lance.setText("Lance");
+        Lance.setEnabled(false);
         Lance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LanceActionPerformed(evt);
@@ -271,22 +279,31 @@ public class MultiTab extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Selecione o nome do livro que deseja comprar e de seu");
+
+        jLabel5.setText("no valor de");
+
         javax.swing.GroupLayout leilaoLayout = new javax.swing.GroupLayout(leilao);
         leilao.setLayout(leilaoLayout);
         leilaoLayout.setHorizontalGroup(
             leilaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(leilaoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(leilaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leilaoLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(leilaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(leilaoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE))
+                    .addGroup(leilaoLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Lance)
-                        .addGap(32, 32, 32)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Flance, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
-                        .addGap(73, 73, 73)))
+                        .addGap(28, 28, 28)))
                 .addContainerGap())
             .addGroup(leilaoLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
@@ -305,13 +322,15 @@ public class MultiTab extends javax.swing.JFrame {
                     .addComponent(Bpesquisar)
                     .addComponent(Fpesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Btodos))
-                .addGap(43, 43, 43)
+                .addGap(52, 52, 52)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(leilaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Lance)
                     .addComponent(Flance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel5))
                 .addContainerGap())
         );
 
@@ -419,9 +438,9 @@ public class MultiTab extends javax.swing.JFrame {
 
         multitab.addTab("cadastrar livros", cadastralivro);
 
-        jMenu1.setText("File");
+        jMenu1.setText("Arquivo");
 
-        jMenuItem5.setText("Logout");
+        jMenuItem5.setText("Sair");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem5ActionPerformed(evt);
@@ -542,7 +561,11 @@ public class MultiTab extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void TabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaMouseClicked
-        // TODO add your handling code here:
+        if (Tabela.getSelectedRow() == -1) {
+            Lance.setEnabled(false);
+        } else {
+            Lance.setEnabled(true);
+        }
     }//GEN-LAST:event_TabelaMouseClicked
 
     private void BpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BpesquisarActionPerformed
@@ -566,8 +589,8 @@ public class MultiTab extends javax.swing.JFrame {
     }//GEN-LAST:event_BpesquisarActionPerformed
 
     private void LogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogarActionPerformed
-        
-        System.out.println("teste 0 "+ Femail.getText());
+
+        System.out.println("teste 0 " + Femail.getText());
         System.out.printf("teste 0{%s}\n ", Fsenha.getPassword().toString());
         try {
             Connection con = Conectar.conn();
@@ -578,8 +601,6 @@ public class MultiTab extends javax.swing.JFrame {
             //login.setString(2, Fsenha.getPassword().toString());
             ResultSet rs = login.executeQuery();
 
-            
-            
             System.out.println("teste  ");
             while (rs.next()) {
                 System.out.println("teste 2");
@@ -599,13 +620,13 @@ public class MultiTab extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        if(Uaux != null){
-                System.out.println(Uaux.getNome());
-        LabelUser.setText("olá "+Uaux.getNome());
-        }
-        else 
+
+        if (Uaux != null) {
+            System.out.println(Uaux.getNome());
+            LabelUser.setText("olá " + Uaux.getNome());
+        } else {
             LabelUser.setText("faça login ou cadastre-se");
+        }
 
     }//GEN-LAST:event_LogarActionPerformed
 
@@ -623,6 +644,7 @@ public class MultiTab extends javax.swing.JFrame {
     }//GEN-LAST:event_BcadActionPerformed
 
     private void BtodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtodosActionPerformed
+        
         try {
 
             Connection con = Conectar.conn();
@@ -630,6 +652,7 @@ public class MultiTab extends javax.swing.JFrame {
             ResultSet rs = ps.executeQuery();
 
             Tabela.setModel(new ResultSetTableModel(rs));
+            Lance.setEnabled(false);
             Tabela.repaint();
 
             con.close();  // fecha conexão com BD
@@ -643,32 +666,58 @@ public class MultiTab extends javax.swing.JFrame {
 
     private void LanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LanceActionPerformed
 
-        String n = Tabela.getValueAt(Tabela.getSelectedRow(), Tabela.getSelectedColumn()).toString();
+//        double tab = Tabela.getSelectedColumn();
+//        System.out.println(tab);
 
-        if (Double.parseDouble(Tabela.getValueAt(Tabela.getSelectedRow(), Tabela.getSelectedColumn() + 3).toString()) < Double.parseDouble(Flance.getText())) {
-            try {
-                Connection con = Conectar.conn();
-                PreparedStatement ps = con.prepareStatement("update livro set valor = '" + Double.parseDouble(Flance.getText()) + "' where titulo ='" + n + "';");
-                ps.executeUpdate();
+        String n = Tabela.getValueAt(Tabela.getSelectedRow(), 0).toString();
+        System.out.println(n);
+        if (Uaux != null) {
 
-                PreparedStatement ps2 = con.prepareStatement("select * from livro;");
-                ResultSet rs = ps2.executeQuery();
-                Tabela.setModel(new ResultSetTableModel(rs));
-                Tabela.repaint();
-                con.close();  // fecha conexão com BD
-            } catch (SQLException ex) {
-                Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
+            if (Double.parseDouble(Tabela.getValueAt(Tabela.getSelectedRow(), 3).toString()) < Double.parseDouble(Flance.getText())) {
+                try {
+                    Connection con = Conectar.conn();
+                    PreparedStatement ps = con.prepareStatement("update livro set valor = '" + Double.parseDouble(Flance.getText()) + "' where titulo ='" + n + "';");
+                    int r = ps.executeUpdate();
+                    if(r != 1){
+                        JOptionPane.showMessageDialog(rootPane, "Não foi possível completar o lance");
+                    }     
+                    PreparedStatement ps2 = con.prepareStatement("select * from livro;");
+                    ResultSet rs = ps2.executeQuery();
+                    Tabela.setModel(new ResultSetTableModel(rs));
+                    Lance.setEnabled(false);
+                    Tabela.repaint();
+                    con.close();  // fecha conexão com BD                    
+                    
+                } catch (SQLException ex) {
+                    Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ArrayIndexOutOfBoundsException ex) {
+                    Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
+                    //JOptionPane.showMessageDialog(rootPane, "Selecione (com o mouse) o nome do livro que deseja comprar, após isso de seu lance");
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Valor do lance deve ser maior que o valor atual");
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Valor do lance deve ser maior que o valor atual");
+            JOptionPane.showMessageDialog(rootPane, "para dar lances faça login ou cadastre-se");
         }
+        
+        
     }//GEN-LAST:event_LanceActionPerformed
 
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
 
     }//GEN-LAST:event_formMouseMoved
+
+    private void TabelaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TabelaFocusLost
+//         java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                Lance.setEnabled(false);
+//            }
+//        });
+        
+    }//GEN-LAST:event_TabelaFocusLost
 
     /**
      * @param args the command line arguments
@@ -725,8 +774,10 @@ public class MultiTab extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCadastrar;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelAutor;
     private javax.swing.JLabel jLabelEstado;
     private javax.swing.JLabel jLabelTitulo;
