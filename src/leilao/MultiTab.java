@@ -85,13 +85,10 @@ public class MultiTab extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        Ajuda = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        Sobre = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Leilão");
@@ -113,6 +110,17 @@ public class MultiTab extends javax.swing.JFrame {
                 LabelUserMouseEntered(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 188, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 263, Short.MAX_VALUE)
+        );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Login"));
 
@@ -176,35 +184,18 @@ public class MultiTab extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(Bcad, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Bcad)
-                .addContainerGap(23, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout PrincipalLayout = new javax.swing.GroupLayout(Principal);
         Principal.setLayout(PrincipalLayout);
         PrincipalLayout.setHorizontalGroup(
             PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PrincipalLayout.createSequentialGroup()
-                .addContainerGap(400, Short.MAX_VALUE)
+                .addContainerGap(222, Short.MAX_VALUE)
+                .addGroup(PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PrincipalLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(Bcad, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
             .addGroup(PrincipalLayout.createSequentialGroup()
@@ -218,8 +209,15 @@ public class MultiTab extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(LabelUser, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addGroup(PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PrincipalLayout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PrincipalLayout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Bcad)
+                        .addGap(47, 47, 47))))
         );
 
         multitab.addTab("Principal", Principal);
@@ -446,12 +444,17 @@ public class MultiTab extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem5);
 
+        jMenuItem6.setText("Logar");
+        jMenuItem6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem6MouseClicked(evt);
+            }
+        });
+        jMenu1.add(jMenuItem6);
+
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
-
-        jMenu3.setText("Ajuda");
+        Ajuda.setText("Ajuda");
 
         jMenuItem1.setText("clique aqui para receber ajuda");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -459,27 +462,17 @@ public class MultiTab extends javax.swing.JFrame {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem1);
+        Ajuda.add(jMenuItem1);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(Ajuda);
 
-        jMenu4.setText("Sobre");
-
-        jMenuItem2.setText("Projeto de Engenharia de software 3");
-        jMenu4.add(jMenuItem2);
-
-        jMenuItem3.setText("Professor: Marco Mangan");
-        jMenu4.add(jMenuItem3);
-
-        jMenuItem4.setText("Por: Gabriel Ortiz e Gisela Lucena");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+        Sobre.setText("Sobre");
+        Sobre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SobreMouseClicked(evt);
             }
         });
-        jMenu4.add(jMenuItem4);
-
-        jMenuBar1.add(jMenu4);
+        jMenuBar1.add(Sobre);
 
         setJMenuBar(jMenuBar1);
 
@@ -527,10 +520,6 @@ public class MultiTab extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         Uaux = null;
@@ -675,32 +664,35 @@ public class MultiTab extends javax.swing.JFrame {
         String n = Tabela.getValueAt(Tabela.getSelectedRow(), 0).toString();
         System.out.println(n);
         if (Uaux != null) {
+            if(isUp()==true){
+                if (Double.parseDouble(Tabela.getValueAt(Tabela.getSelectedRow(), 3).toString()) < Double.parseDouble(Flance.getText())) {
+                    try {
+                        Connection con = Conectar.conn();
+                        PreparedStatement ps = con.prepareStatement("update livro set valor = '"+Double.parseDouble(Flance.getText())+"', vencendo='"+Uaux.getNome()+"' where titulo ='" + n + "';");
+                        int r = ps.executeUpdate();
+                        if(r != 1){
+                            JOptionPane.showMessageDialog(rootPane, "Não foi possível completar o lance");
+                        }     
+                        PreparedStatement ps2 = con.prepareStatement("select * from livro;");
+                        ResultSet rs = ps2.executeQuery();
+                        Tabela.setModel(new ResultSetTableModel(rs));
+                        Lance.setEnabled(false);
+                        Tabela.repaint();
+                        con.close();  // fecha conexão com BD                    
 
-            if (Double.parseDouble(Tabela.getValueAt(Tabela.getSelectedRow(), 3).toString()) < Double.parseDouble(Flance.getText())) {
-                try {
-                    Connection con = Conectar.conn();
-                    PreparedStatement ps = con.prepareStatement("update livro set valor = '"+Double.parseDouble(Flance.getText())+"', vencendo='"+Uaux.getNome()+"' where titulo ='" + n + "';");
-                    int r = ps.executeUpdate();
-                    if(r != 1){
-                        JOptionPane.showMessageDialog(rootPane, "Não foi possível completar o lance");
-                    }     
-                    PreparedStatement ps2 = con.prepareStatement("select * from livro;");
-                    ResultSet rs = ps2.executeQuery();
-                    Tabela.setModel(new ResultSetTableModel(rs));
-                    Lance.setEnabled(false);
-                    Tabela.repaint();
-                    con.close();  // fecha conexão com BD                    
-                    
-                } catch (SQLException ex) {
-                    Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ArrayIndexOutOfBoundsException ex) {
-                    Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
-                    //JOptionPane.showMessageDialog(rootPane, "Selecione (com o mouse) o nome do livro que deseja comprar, após isso de seu lance");
+                    } catch (SQLException ex) {
+                        Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ArrayIndexOutOfBoundsException ex) {
+                        Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
+                        //JOptionPane.showMessageDialog(rootPane, "Selecione (com o mouse) o nome do livro que deseja comprar, após isso de seu lance");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Valor do lance deve ser maior que o valor atual");
                 }
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Valor do lance deve ser maior que o valor atual");
+                JOptionPane.showMessageDialog(rootPane, "Leilão encerrado");
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "para dar lances faça login ou cadastre-se");
@@ -709,6 +701,23 @@ public class MultiTab extends javax.swing.JFrame {
         
     }//GEN-LAST:event_LanceActionPerformed
 
+    private boolean isUp(){   
+        DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
+        Date hoje = Calendar.getInstance().getTime();
+        
+        String h = df.format(hoje);
+        CharSequence csHoje = h.subSequence(9, 10);
+        
+        String livro = df.format(Tabela.getValueAt(Tabela.getSelectedRow(), 4));
+        CharSequence csLivro = livro.subSequence(9, 10);
+        
+        System.out.println(csHoje.toString() + "  "+csLivro.toString());
+        if(csHoje.equals(csLivro))
+            return true;
+        else return false;
+    }
+    
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
 
     }//GEN-LAST:event_formMouseMoved
@@ -721,6 +730,14 @@ public class MultiTab extends javax.swing.JFrame {
 //        });
         
     }//GEN-LAST:event_TabelaFocusLost
+
+    private void jMenuItem6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem6MouseClicked
+        new CadUsuario().setVisible(true);
+    }//GEN-LAST:event_jMenuItem6MouseClicked
+
+    private void SobreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SobreMouseClicked
+        JOptionPane.showMessageDialog(rootPane, "Engenharia de Software III @ SENACRS - Professor: Marco Mangan - Alunos: Gabriel Ortiz e Gisela Lucena");
+    }//GEN-LAST:event_SobreMouseClicked
 
     /**
      * @param args the command line arguments
@@ -757,6 +774,7 @@ public class MultiTab extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu Ajuda;
     private javax.swing.JButton Bcad;
     private javax.swing.JButton Bpesquisar;
     private javax.swing.JButton Btodos;
@@ -772,6 +790,7 @@ public class MultiTab extends javax.swing.JFrame {
     private javax.swing.JButton Lance;
     private javax.swing.JButton Logar;
     private javax.swing.JPanel Principal;
+    private javax.swing.JMenu Sobre;
     private javax.swing.JTable Tabela;
     private javax.swing.JPanel cadastralivro;
     private javax.swing.JButton jButtonCadastrar;
@@ -786,15 +805,10 @@ public class MultiTab extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JLabel jLabelValor;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
