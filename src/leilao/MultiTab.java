@@ -127,8 +127,6 @@ public class MultiTab extends javax.swing.JFrame {
             }
         });
 
-        Fsenha.setText("jPasswordField1");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -516,9 +514,9 @@ public class MultiTab extends javax.swing.JFrame {
             Connection con = Conectar.conn();
             int x = 0;
             Statement statement = con.createStatement();
-            statement.executeUpdate("insert into livro(titulo, estado, autor, valor, data) values('" + Ftitulo.getText() + "','"
+            statement.executeUpdate("insert into livro(titulo, estado, autor, valor, data, vencendo) values('" + Ftitulo.getText() + "','"
                     + String.valueOf(Festado.getSelectedItem()) + "','" + Fautor.getText() + "','" + Fvalor.getText()
-                    + "','" + dateFormat.format(date) + "');");
+                    + "','" + dateFormat.format(date)+"','');");
             Ftitulo.setText("");
             Fautor.setText("");
             Fvalor.setText("");
@@ -612,6 +610,11 @@ public class MultiTab extends javax.swing.JFrame {
             }
 
             Uaux = new Usuario(n, c, e, s);
+            
+            n = null;
+            c = null;
+            e = null;
+            s = null;
 
             System.out.println(Uaux.toString());
 
@@ -676,7 +679,7 @@ public class MultiTab extends javax.swing.JFrame {
             if (Double.parseDouble(Tabela.getValueAt(Tabela.getSelectedRow(), 3).toString()) < Double.parseDouble(Flance.getText())) {
                 try {
                     Connection con = Conectar.conn();
-                    PreparedStatement ps = con.prepareStatement("update livro set valor = '" + Double.parseDouble(Flance.getText()) + "' where titulo ='" + n + "';");
+                    PreparedStatement ps = con.prepareStatement("update livro set valor = '"+Double.parseDouble(Flance.getText())+"', vencendo='"+Uaux.getNome()+"' where titulo ='" + n + "';");
                     int r = ps.executeUpdate();
                     if(r != 1){
                         JOptionPane.showMessageDialog(rootPane, "Não foi possível completar o lance");
