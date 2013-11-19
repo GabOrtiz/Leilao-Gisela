@@ -99,11 +99,9 @@ public class CadUsuario extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Acesso"));
 
-        jLabel4.setText("Login:");
+        jLabel4.setText("Email:");
 
         jLabel5.setText("Senha:");
-
-        Femail.setText("seu email");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

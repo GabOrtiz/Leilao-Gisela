@@ -500,16 +500,25 @@ public class MultiTab extends javax.swing.JFrame {
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
         try {
             Date date = new Date();
             Connection con = Conectar.conn();
             int x = 0;
-            Statement statement = con.createStatement();
-            statement.executeUpdate("insert into livro(titulo, estado, autor, valor, data, vencendo) values('" + Ftitulo.getText() + "','"
-                    + String.valueOf(Festado.getSelectedItem()) + "','" + Fautor.getText() + "','" + Fvalor.getText()
-                    + "','" + dateFormat.format(date)+"','');");
+           
+            PreparedStatement ps = con.prepareStatement("insert into livro(titulo, estado, autor, valor, data, vencendo)values(?,?,?,?,?,?);");
+            
+            
+            ps.setString(1,Ftitulo.getText());
+            ps.setString(2,String.valueOf(Festado.getSelectedItem()));
+            ps.setString(3,Fautor.getText());
+            ps.setString(4,Fvalor.getText());
+            ps.setDate(5,new java.sql.Date(date.getTime()));//              valueOf(dateFormat.format(date)));     
+            ps.setString(6,"");
+                    
+                    
+            ps.executeUpdate();
             Ftitulo.setText("");
             Fautor.setText("");
             Fvalor.setText("");
@@ -668,7 +677,11 @@ public class MultiTab extends javax.swing.JFrame {
                 if (Double.parseDouble(Tabela.getValueAt(Tabela.getSelectedRow(), 3).toString()) < Double.parseDouble(Flance.getText())) {
                     try {
                         Connection con = Conectar.conn();
-                        PreparedStatement ps = con.prepareStatement("update livro set valor = '"+Double.parseDouble(Flance.getText())+"', vencendo='"+Uaux.getNome()+"' where titulo ='" + n + "';");
+                        PreparedStatement ps = con.prepareStatement("update livro set valor = ?, vencendo= ? where titulo =?;");
+                        
+                        ps.setDouble(1, Double.parseDouble(Flance.getText()));
+                        ps.setString(2,Uaux.getNome());
+                        ps.setString(3,n);
                         int r = ps.executeUpdate();
                         if(r != 1){
                             JOptionPane.showMessageDialog(rootPane, "Não foi possível completar o lance");
@@ -702,18 +715,19 @@ public class MultiTab extends javax.swing.JFrame {
     }//GEN-LAST:event_LanceActionPerformed
 
     private boolean isUp(){   
-        DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 
         Date hoje = Calendar.getInstance().getTime();
         
         String h = df.format(hoje);
-        CharSequence csHoje = h.subSequence(9, 10);
+        //CharSequence csHoje = h.subSequence(8, 13);
         
         String livro = df.format(Tabela.getValueAt(Tabela.getSelectedRow(), 4));
-        CharSequence csLivro = livro.subSequence(9, 10);
+        //CharSequence csLivro = livro.subSequence(8, 13);
         
-        System.out.println(csHoje.toString() + "  "+csLivro.toString());
-        if(csHoje.equals(csLivro))
+        //System.out.println(csHoje.toString() + "  "+csLivro.toString());
+        //if(csHoje.equals(csLivro))
+        if(h.equals(livro))
             return true;
         else return false;
     }
