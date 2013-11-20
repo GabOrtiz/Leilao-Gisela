@@ -4,7 +4,10 @@
  */
 package leilao;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -210,19 +213,42 @@ public class CadUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_BcancelarActionPerformed
 
     private void BcadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BcadastrarActionPerformed
-            try{ 
+         try{ 
             Connection con = Conectar.conn();
         int x = 0;
-        Statement statement = con.createStatement();
-        statement.executeUpdate("insert into usuario(nome, cpf, email, senha) values('"+Fnome.getText()+"','"
-                +Fcpf.getText()+"','"+Femail.getText()+"','"+Fsenha.getText()+"');");
+        
+        Cryptography cryptography;
+        cryptography = new CryptographySHA512();
+        String cript;
+          
+        cript = cryptography.encrypt(Fsenha.getText());
+            
+        
+        PreparedStatement ps = con.prepareStatement("insert into usuario(nome, cpf, email, senha) values(?,?,?,?);");
+
+
+        ps.setString(1,Fnome.getText());
+        ps.setString(2,Fcpf.getText());
+        ps.setString(3,Femail.getText());       
+        ps.setString(4,cript);
+        
+        ps.executeUpdate();
         Fnome.setText("");
         Fcpf.setText("");
         Femail.setText("");
         Fsenha.setText("");
+        
+        
+        System.out.println("fsenha "+Fsenha.getText());
+        System.out.println("senha criptografada "+ cript);
+        
+        
         con.close();  // fecha conexão com BD
         } catch (SQLException ex){
                 Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(CadUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
         
         

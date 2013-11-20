@@ -5,16 +5,20 @@
 package leilao;
 
 import java.awt.Component;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.Date;
 import java.util.*;
 import java.net.*;
 import java.io.*;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -34,8 +38,8 @@ public class MultiTab extends javax.swing.JFrame {
      * Creates new form MultiTab
      */
     public MultiTab() {
-
         initComponents();
+        setIcon();
 
         //Uaux = new Usuario("teste", "teste", "teste", "teste");
     }
@@ -92,6 +96,11 @@ public class MultiTab extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Leilão");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 formMouseMoved(evt);
@@ -585,49 +594,58 @@ public class MultiTab extends javax.swing.JFrame {
     }//GEN-LAST:event_BpesquisarActionPerformed
 
     private void LogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogarActionPerformed
-
-        System.out.println("teste 0 " + Femail.getText());
-        System.out.printf("teste 0{%s}\n ", Fsenha.getPassword().toString());
-        try {
+                try {
             Connection con = Conectar.conn();
-            //PreparedStatement login = con.prepareStatement("select * from usuario where email = '" + Femail.getText() + "' and senha = '" + Fsenha.getPassword().toString() + "';");
-            //PreparedStatement login = con.prepareStatement("select * from usuario where email = ? and senha = ?");
-            PreparedStatement login = con.prepareStatement("select * from usuario where email= ?");
+            
+            Cryptography cryptography;
+            cryptography = new CryptographySHA512();
+            String cript;          
+            cript = cryptography.encrypt(Fsenha.getText());
+                    
+            PreparedStatement login = con.prepareStatement("select * from usuario where email = ? and senha = ?");
             login.setString(1, Femail.getText());
-            //login.setString(2, Fsenha.getPassword().toString());
+            login.setString(2, cript);
+
             ResultSet rs = login.executeQuery();
 
-            System.out.println("teste  ");
-            while (rs.next()) {
+            System.out.println("começo do while");
+            if(rs.next()){
                 System.out.println("teste 2");
                 n = (rs.getString("nome"));
                 c = (rs.getString("cpf"));
                 e = (rs.getString("email"));
                 System.out.println("teste 3 " + n);
-                s = (rs.getString("senha"));;
+                s = (rs.getString("senha"));
+                Uaux = new Usuario(n, c, e, s);
             }
 
-            Uaux = new Usuario(n, c, e, s);
+            
             
             n = null;
             c = null;
             e = null;
             s = null;
 
-            System.out.println(Uaux.toString());
+            
+            if (Uaux != null) {
+                System.out.println(Uaux.getNome());
+                LabelUser.setText("olá " + Uaux.getNome());
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Erro");
+                LabelUser.setText("faça login ou cadastre-se");
+            }
+            //System.out.println(Uaux.toString());
 
             //Uaux = new Usuario(rs.getString("nome"),rs.getString("cpf"),rs.getString("email"),rs.getString("senha"));
             con.close();  // fecha conexão com BD
         } catch (SQLException ex) {
             Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
         }
+                catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-        if (Uaux != null) {
-            System.out.println(Uaux.getNome());
-            LabelUser.setText("olá " + Uaux.getNome());
-        } else {
-            LabelUser.setText("faça login ou cadastre-se");
-        }
+        
 
     }//GEN-LAST:event_LogarActionPerformed
 
@@ -753,6 +771,10 @@ public class MultiTab extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, "Engenharia de Software III @ SENACRS - Professor: Marco Mangan - Alunos: Gabriel Ortiz e Gisela Lucena");
     }//GEN-LAST:event_SobreMouseClicked
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        
+    }//GEN-LAST:event_formWindowActivated
+
     /**
      * @param args the command line arguments
      */
@@ -829,4 +851,8 @@ public class MultiTab extends javax.swing.JFrame {
     private javax.swing.JPanel leilao;
     private javax.swing.JTabbedPane multitab;
     // End of variables declaration//GEN-END:variables
+
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("image/book.png")));
+    }
 }
