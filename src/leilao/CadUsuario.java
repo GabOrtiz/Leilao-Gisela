@@ -28,7 +28,7 @@ public class CadUsuario extends javax.swing.JFrame {
     public CadUsuario() {
         initComponents();
         
-        Usuario u = new Usuario("Maria", "9014871", "a","a");
+        Usuario u = new Usuario("Maria", "9014871", "a","a","");
         usuarios.add(u);
     }
 
@@ -224,13 +224,14 @@ public class CadUsuario extends javax.swing.JFrame {
         cript = cryptography.encrypt(Fsenha.getText());
             
         
-        PreparedStatement ps = con.prepareStatement("insert into usuario(nome, cpf, email, senha) values(?,?,?,?);");
+        PreparedStatement ps = con.prepareStatement("insert into usuario(nome, cpf, email, senha, msg) values(?,?,?,?,?);");
 
 
         ps.setString(1,Fnome.getText());
         ps.setString(2,Fcpf.getText());
         ps.setString(3,Femail.getText());       
         ps.setString(4,cript);
+        ps.setString(5,"");
         
         ps.executeUpdate();
         Fnome.setText("");

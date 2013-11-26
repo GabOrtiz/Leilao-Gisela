@@ -1,0 +1,68 @@
+create table livro(
+
+
+titulo char(60),
+
+estado char(30),
+
+autor char(60),
+
+valor double,
+
+data date,
+
+vencendo char(60),
+
+vendedor char(60));
+
+
+
+
+
+insert into livro (titulo, estado, autor, valor, data, vencendo) 
+values('game of thrones','novo','George R. R. Martin','22','2013/11/18 09:35:00','gabriel');
+
+
+yyyy/MM/dd HH:mm:ss
+
+
+
+
+drop table livro;
+
+
+
+
+create table usuario(
+
+nome char(60),
+
+cpf decimal(11),
+
+email char(60),
+
+senha char(170),
+
+msg char(255));
+
+
+
+
+
+
+drop table usuario;
+
+
+
+
+
+
+select * from usuario;
+
+
+
+
+
+select * from usuario where email = 'teste' and senha = 'teste';
+
+update usuario set senha = '[C@1e67280' where cpf = 1;

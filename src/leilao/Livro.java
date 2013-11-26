@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Ortiz
  */
 public class Livro{
-    private String titulo, autor, estado, cpfMaior;
+    private String titulo, autor, estado, vencendo, vendedor;
     private double valor;
     private Date data;
 
@@ -24,20 +24,21 @@ public class Livro{
         this.data = Calendar.getInstance().getTime();
     }
     
-    public Livro(String titulo, String autor, String estado, double valor, Date data, String cpfMaior){
+    public Livro(String titulo, String autor, String estado, double valor, Date data, String vencendo, String vendedor){
         this.titulo = titulo;
         this.autor = autor;
         this.estado = estado;
         this.valor = valor;
         this.data = Calendar.getInstance().getTime();
+        this.vendedor = vendedor;
     }
 
-    public String getCpfMaior(){
-        return cpfMaior;
+    public String getVencendo(){
+        return vencendo;
     }
 
-    public void setCpfMaior(String cpfMaior){
-        this.cpfMaior = cpfMaior;
+    public void setVencendo(String vencendo){
+        this.vencendo = vencendo;
     }
 
     public Date getData(){
@@ -76,9 +77,17 @@ public class Livro{
         this.valor = valor;
     }
 
+    public String getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(String vendedor) {
+        this.vendedor = vendedor;
+    }
+
     @Override
     public String toString() {
-        return "Livro{" + "titulo=" + titulo + ", autor=" + autor + ", estado=" + estado + ", cpfMaior=" + cpfMaior + ", valor=" + valor + ", data=" + data + '}';
+        return "Livro{" + "titulo=" + titulo + ", autor=" + autor + ", estado=" + estado + ", vencendo=" + vencendo + ", valor=" + valor + ", data=" + data + '}';
     }
   
     

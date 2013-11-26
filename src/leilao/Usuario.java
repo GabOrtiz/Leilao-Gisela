@@ -9,14 +9,15 @@ package leilao;
  * @author Ortiz
  */
 public class Usuario {
-    private String nome, cpf, email, senha;
+    private String nome, cpf, email, senha, msg;
 
 
-    public Usuario(String nome, String cpf, String email,String senha){
+    public Usuario(String nome, String cpf, String email,String senha, String msg){
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.senha = senha;
+        this.msg = msg;
     }
 
     public String getNome(){
@@ -54,6 +55,14 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
     
     

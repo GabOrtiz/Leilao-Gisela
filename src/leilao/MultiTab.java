@@ -28,7 +28,7 @@ import javax.swing.JOptionPane;
 public class MultiTab extends javax.swing.JFrame {
 
     public static Usuario Uaux;
-    String n, c, e, s;
+    String n, c, e, s, m;
     String nome = "";
     String cpf = "";
     String email = "";
@@ -40,6 +40,7 @@ public class MultiTab extends javax.swing.JFrame {
     public MultiTab() {
         initComponents();
         setIcon();
+        Pmsg.setVisible(false);
 
         //Uaux = new Usuario("teste", "teste", "teste", "teste");
     }
@@ -56,14 +57,16 @@ public class MultiTab extends javax.swing.JFrame {
         multitab = new javax.swing.JTabbedPane();
         Principal = new javax.swing.JPanel();
         LabelUser = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        Plogin = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         Logar = new javax.swing.JButton();
         Femail = new javax.swing.JTextField();
         Fsenha = new javax.swing.JPasswordField();
         Bcad = new javax.swing.JButton();
+        Pmsg = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Amsg = new javax.swing.JTextArea();
         leilao = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabela = new javax.swing.JTable();
@@ -120,18 +123,7 @@ public class MultiTab extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 188, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 263, Short.MAX_VALUE)
-        );
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Login"));
+        Plogin.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Login"));
 
         jLabel3.setText("Email");
 
@@ -144,35 +136,45 @@ public class MultiTab extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        Bcad.setText("Cadastre-se aqui");
+        Bcad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BcadActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PloginLayout = new javax.swing.GroupLayout(Plogin);
+        Plogin.setLayout(PloginLayout);
+        PloginLayout.setHorizontalGroup(
+            PloginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PloginLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(Logar)
                 .addGap(70, 70, 70))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PloginLayout.createSequentialGroup()
+                .addGroup(PloginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PloginLayout.createSequentialGroup()
+                        .addGroup(PloginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PloginLayout.createSequentialGroup()
                                 .addGap(90, 90, 90)
                                 .addComponent(jLabel3))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PloginLayout.createSequentialGroup()
                                 .addGap(87, 87, 87)
                                 .addComponent(jLabel4)))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PloginLayout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Fsenha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                        .addGroup(PloginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Fsenha, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(Femail))))
                 .addGap(20, 20, 20))
+            .addGroup(PloginLayout.createSequentialGroup()
+                .addComponent(Bcad, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        PloginLayout.setVerticalGroup(
+            PloginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PloginLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addGap(11, 11, 11)
@@ -183,50 +185,53 @@ public class MultiTab extends javax.swing.JFrame {
                 .addComponent(Fsenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Logar)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(Bcad)
+                .addContainerGap())
         );
 
-        Bcad.setText("Cadastre-se aqui");
-        Bcad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BcadActionPerformed(evt);
-            }
-        });
+        Pmsg.setBorder(javax.swing.BorderFactory.createTitledBorder("Mensagens"));
+
+        Amsg.setColumns(20);
+        Amsg.setRows(5);
+        jScrollPane2.setViewportView(Amsg);
+
+        javax.swing.GroupLayout PmsgLayout = new javax.swing.GroupLayout(Pmsg);
+        Pmsg.setLayout(PmsgLayout);
+        PmsgLayout.setHorizontalGroup(
+            PmsgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+        );
+        PmsgLayout.setVerticalGroup(
+            PmsgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2)
+        );
 
         javax.swing.GroupLayout PrincipalLayout = new javax.swing.GroupLayout(Principal);
         Principal.setLayout(PrincipalLayout);
         PrincipalLayout.setHorizontalGroup(
             PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PrincipalLayout.createSequentialGroup()
-                .addContainerGap(222, Short.MAX_VALUE)
-                .addGroup(PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PrincipalLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(Bcad, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
             .addGroup(PrincipalLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(232, 232, 232)
                 .addComponent(LabelUser, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(281, Short.MAX_VALUE))
+            .addGroup(PrincipalLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(Pmsg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Plogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
         );
         PrincipalLayout.setVerticalGroup(
             PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PrincipalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(LabelUser, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addGroup(PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PrincipalLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PrincipalLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Bcad)
-                        .addGap(47, 47, 47))))
+                .addGap(41, 41, 41)
+                .addGroup(PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Plogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Pmsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         multitab.addTab("Principal", Principal);
@@ -510,13 +515,16 @@ public class MultiTab extends javax.swing.JFrame {
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
 
         //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-
+        if(Uaux == null){
+            JOptionPane.showMessageDialog(rootPane, "Voce deve estar logado para criar um leilão");
+        }
+        else
         try {
             Date date = new Date();
             Connection con = Conectar.conn();
             int x = 0;
            
-            PreparedStatement ps = con.prepareStatement("insert into livro(titulo, estado, autor, valor, data, vencendo)values(?,?,?,?,?,?);");
+            PreparedStatement ps = con.prepareStatement("insert into livro(titulo, estado, autor, valor, data, vencendo, vendedor)values(?,?,?,?,?,?,?);");
             
             
             ps.setString(1,Ftitulo.getText());
@@ -525,6 +533,7 @@ public class MultiTab extends javax.swing.JFrame {
             ps.setString(4,Fvalor.getText());
             ps.setDate(5,new java.sql.Date(date.getTime()));//              valueOf(dateFormat.format(date)));     
             ps.setString(6,"");
+            ps.setString(7, Uaux.getNome());
                     
                     
             ps.executeUpdate();
@@ -541,6 +550,8 @@ public class MultiTab extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         Uaux = null;
+        Plogin.setVisible(true);
+        Pmsg.setVisible(false);
         LabelUser.setText("faça login ou cadastre-se");
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
@@ -616,7 +627,8 @@ public class MultiTab extends javax.swing.JFrame {
                 e = (rs.getString("email"));
                 System.out.println("teste 3 " + n);
                 s = (rs.getString("senha"));
-                Uaux = new Usuario(n, c, e, s);
+                m = (rs.getString("msg"));
+                Uaux = new Usuario(n, c, e, s, m);
             }
 
             
@@ -630,6 +642,9 @@ public class MultiTab extends javax.swing.JFrame {
             if (Uaux != null) {
                 System.out.println(Uaux.getNome());
                 LabelUser.setText("olá " + Uaux.getNome());
+                Plogin.setVisible(false);
+                Pmsg.setVisible(true);
+                Amsg.setText(m);
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Erro");
                 LabelUser.setText("faça login ou cadastre-se");
@@ -703,9 +718,15 @@ public class MultiTab extends javax.swing.JFrame {
                         int r = ps.executeUpdate();
                         if(r != 1){
                             JOptionPane.showMessageDialog(rootPane, "Não foi possível completar o lance");
-                        }     
-                        PreparedStatement ps2 = con.prepareStatement("select * from livro;");
-                        ResultSet rs = ps2.executeQuery();
+                        }
+                        
+                        PreparedStatement ps2 = con.prepareStatement("UPDATE usuario SET msg=? where nome=?;");
+                        ps2.setString(1, "O usuário "+Uaux.getNome()+" deu um lance de "+Flance.getText()+",00 R$ em um de seus livros");
+                        ps2.setString(2, Tabela.getValueAt(Tabela.getSelectedRow(), 6).toString());
+                        ps2.executeUpdate();
+                        
+                        PreparedStatement ps3 = con.prepareStatement("select * from livro;");
+                        ResultSet rs = ps3.executeQuery();
                         Tabela.setModel(new ResultSetTableModel(rs));
                         Lance.setEnabled(false);
                         Tabela.repaint();
@@ -811,6 +832,7 @@ public class MultiTab extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Ajuda;
+    private javax.swing.JTextArea Amsg;
     private javax.swing.JButton Bcad;
     private javax.swing.JButton Bpesquisar;
     private javax.swing.JButton Btodos;
@@ -825,6 +847,8 @@ public class MultiTab extends javax.swing.JFrame {
     private javax.swing.JLabel LabelUser;
     private javax.swing.JButton Lance;
     private javax.swing.JButton Logar;
+    private javax.swing.JPanel Plogin;
+    private javax.swing.JPanel Pmsg;
     private javax.swing.JPanel Principal;
     private javax.swing.JMenu Sobre;
     private javax.swing.JTable Tabela;
@@ -845,9 +869,8 @@ public class MultiTab extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel leilao;
     private javax.swing.JTabbedPane multitab;
     // End of variables declaration//GEN-END:variables
