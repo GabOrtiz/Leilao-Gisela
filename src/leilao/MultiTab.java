@@ -470,7 +470,7 @@ public class MultiTab extends javax.swing.JFrame {
 
         Ajuda.setText("Ajuda");
 
-        jMenuItem1.setText("clique aqui para receber ajuda");
+        jMenuItem1.setText("clique aqui para ver o menu");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -567,7 +567,7 @@ public class MultiTab extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         try {
-            java.awt.Desktop.getDesktop().browse(new java.net.URI("http://www.google.com"));
+            java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/GabOrtiz/Leilao-Gisela/wiki/Manual"));
         } catch (IOException ex) {
             Logger.getLogger(MultiTab.class.getName()).log(Level.SEVERE, null, ex);
         } catch (URISyntaxException ex) {
